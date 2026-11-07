@@ -15,17 +15,6 @@
  limitations under the License.
 
 -->
-<!--
-Usage notes:
-
-To build NTEventLogAppender.dll using MinGW, place mingw\bin on path for Windows or install mingw
-package on other platforms.  Build will execute gcc and windres on Windows and
-i586-mingw32msvc-gcc and i586-mingw32msvc-windres on other platforms.
-
-To build NTEventLogAppender.dll using Microsoft tools, run the appropriate vcvars for the
-target platform and specify -Dntdll_target=msbuild on the mvn command line.
-
--->        
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>log4j</groupId>
@@ -143,7 +132,6 @@ target platform and specify -Dntdll_target=msbuild on the mvn command line.
             <include>org/apache/log4j/RFATestCase.java</include>
             <include>org/apache/log4j/varia/ERFATestCase.java</include>
             <include>org/apache/log4j/net/SyslogAppenderTest</include>
-            <include>org/apache/log4j/nt/NTEventLogAppenderTest</include>
             <include>org/apache/log4j/net/SocketAppenderTest</include>
           </includes>
         </configuration>
@@ -180,24 +168,6 @@ target platform and specify -Dntdll_target=msbuild on the mvn command line.
         <artifactId>maven-antrun-plugin</artifactId>
         <version>1.2</version>
         <executions>
-          <!--   generate NTEventLogAppender.dll    -->
-          <execution>
-            <phase>process-classes</phase>
-            <id>ntdll</id>
-            <configuration>
-              <tasks>
-                <ant antfile="src/ntdll/build.xml" target="${ntdll_target}">
-                  <property name="target.dir" location="target" />
-                  <property name="classes.dir" location="target/classes" />
-                  <property name="src.dir" location="src/ntdll" />
-                  <property name="jni.include.dir" location="${java.home}/../include" />
-                </ant>
-              </tasks>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
           <!--   create tests/output prior to test run    -->
           <execution>
             <phase>test-compile</phase>
@@ -478,7 +448,6 @@ target platform and specify -Dntdll_target=msbuild on the mvn command line.
       <properties>
         <tools.jar>${java.home}/../Classes/classes.jar</tools.jar>
         <m2_repo>${user.home}/.m2/repository</m2_repo>
-        <ntdll_target>build</ntdll_target>
         <log4j.tests.target>runAll</log4j.tests.target>
       </properties>
     </profile>
@@ -490,7 +459,6 @@ target platform and specify -Dntdll_target=msbuild on the mvn command line.
       <properties>
         <tools.jar>${java.home}/../lib/tools.jar</tools.jar>
         <m2_repo>${user.home}/.m2/repository</m2_repo>
-        <ntdll_target>build</ntdll_target>
         <log4j.tests.target>runAll</log4j.tests.target>
       </properties>
     </profile>

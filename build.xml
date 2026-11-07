@@ -347,17 +347,6 @@
     </javac>
   </target>
 
-    <target name="build.nt" depends="log4j.jar" description="Build NTEventLogAppender.dll">
-         <mkdir dir="${dist.dir}/object"/>
-         <ant antfile="src/ntdll/build.xml">
-				<property name="target.dir" location="${dist.dir}/lib"/>
-				<property name="object.dir" location="${dist.dir}/object"/>
-				<property name="classes.dir" location="${javac.dest}" />
-				<property name="src.dir" location="src/ntdll" />
-                <property name="jni.include.dir" location="${java.home}/../include" />
-		  </ant>
-    </target>
-
   <!-- ================================================================= -->
   <!-- Remove all generated (compiled) class files.                      -->
   <!-- ================================================================= -->
@@ -424,7 +413,6 @@
                    ${stem}/lf5/**/*.class,
                    ${stem}/lf5/**/*.properties,
                    ${stem}/lf5/**/*.gif,
-                   ${stem}/nt/*.class,
                    ${stem}/xml/*.class,
                    ${stem}/jmx/*.class,
                    ${stem}/or/*.class,
@@ -482,7 +470,6 @@
                            org.apache.log4j.jmx,
                            org.apache.log4j.lf5,
                            org.apache.log4j.net,
-                           org.apache.log4j.nt,
                            org.apache.log4j.or,
                            org.apache.log4j.jdbc,
                            org.apache.log4j.or.sax,
