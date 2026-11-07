@@ -538,6 +538,12 @@ target platform and specify -Dntdll_target=msbuild on the mvn command line.
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.3.176</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
       <artifactId>geronimo-jms_1.1_spec</artifactId>
       <version>1.0</version>
