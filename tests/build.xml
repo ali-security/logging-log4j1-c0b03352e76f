@@ -175,7 +175,8 @@
                                      OptionConverter, BoundedFIFO,
                                      CyclicBuffer, OR,
                                      LevelMatchFilter, PatternParser, 
-                                     ErrorHandler,Rewrite, JNDIUtil, JDBC"/>
+                                     ErrorHandler,Rewrite, JNDIUtil, JDBC,
+                                     HardenedObjectInputStream"/>
 
   <!-- ================================================================= -->
   <!-- Longer unit tests                                                 -->
@@ -489,6 +490,18 @@
       <formatter type="plain" usefile="false"/>
       <test name="org.apache.log4j.nt.NTEventLogAppenderTest" />
     </junit>
+  </target>
+
+  <target name="HardenedObjectInputStream" depends="build">
+      <!-- bounded heap and time: the CVE-2023-26464 payloads exhaust
+           memory or CPU when they are not rejected -->
+      <junit printsummary="yes" fork="yes" maxmemory="768m" timeout="600000"
+        haltonfailure="${haltonfailure}" dir="${basedir}">
+        <classpath refid="tests.classpath"/>
+        <formatter type="plain" usefile="false"/>
+        <test name="org.apache.log4j.net.HardenedObjectInputStreamTest" />
+        <test name="org.apache.log4j.chainsaw.LoggingReceiverTest" />
+      </junit>
   </target>
 
   <target name="Socket" depends="build">
