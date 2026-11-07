@@ -17,7 +17,9 @@
 
 package org.apache.log4j.varia;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import org.apache.log4j.Appender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -51,6 +53,17 @@ public class ErrorHandlerTestCase extends TestCase {
 
   public ErrorHandlerTestCase(String name) {
     super(name);
+  }
+
+  /**
+   * Fixed order: test2 (PropertyConfigurator) only finds output/temp once test1
+   * (DOMConfigurator) has written it; reflection order on JDK 7+ is unspecified.
+   */
+  public static Test suite() {
+    TestSuite suite = new TestSuite();
+    suite.addTest(new ErrorHandlerTestCase("test1"));
+    suite.addTest(new ErrorHandlerTestCase("test2"));
+    return suite;
   }
 
   public void setUp() {
